@@ -149,24 +149,29 @@ private void calcularTotal() {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
                                                 
+   
+    // que no este vacio el txt
     if (TextCantidadVender.getText().trim().isEmpty()) {
         javax.swing.JOptionPane.showMessageDialog(null, "Ingresa la cantidad a vender.");
         return;
     }
 
-    String carneSeleccionada = CarneVenderComboBox.getSelectedItem().toString();
-    double cantidadAVender = Double.parseDouble(TextCantidadVender.getText().trim());
+    
+    String carneSeleccionada = CarneVenderComboBox.getSelectedItem().toString(); //agarramos la carne seleccionada en el cb
+    double cantidadAVender = Double.parseDouble(TextCantidadVender.getText().trim()); //covertir el txt a double
 
     try {
         carniceriamr.Conexion cn = new carniceriamr.Conexion();
         java.sql.Connection con = cn.conectar();
 
-        String sqlBuscar = "SELECT precio, stock FROM productos WHERE nombre = ?";
+        // 3. Buscamos id_producto, precio y stock
+        String sqlBuscar = "SELECT id_producto, precio, stock FROM productos WHERE nombre = ?";
         java.sql.PreparedStatement psBuscar = con.prepareStatement(sqlBuscar);
         psBuscar.setString(1, carneSeleccionada);
         java.sql.ResultSet rs = psBuscar.executeQuery();
 
         if (rs.next()) {
+            int idProducto = rs.getInt("id_producto");
             double precio = rs.getDouble("precio");
             double stockActual = rs.getDouble("stock");
 
@@ -176,22 +181,52 @@ private void calcularTotal() {
                 double total = precio * cantidadAVender;
                 double nuevoStock = stockActual - cantidadAVender;
 
-                String sqlUpdate = "UPDATE productos SET stock = ? WHERE nombre = ?";
+                // A. Restamos el stock en la tabla productos
+                String sqlUpdate = "UPDATE productos SET stock = ? WHERE id_producto = ?";
                 java.sql.PreparedStatement psUpdate = con.prepareStatement(sqlUpdate);
                 psUpdate.setDouble(1, nuevoStock);
-                psUpdate.setString(2, carneSeleccionada);
+                psUpdate.setInt(2, idProducto);
                 psUpdate.executeUpdate();
 
+                // B. REGISTRAMOS LA VENTA GENERAL
+                String sqlVenta = "INSERT INTO ventas (id_cliente, total) VALUES (1, ?)";
+                java.sql.PreparedStatement psVenta = con.prepareStatement(sqlVenta, java.sql.Statement.RETURN_GENERATED_KEYS);
+                psVenta.setDouble(1, total);
+                psVenta.executeUpdate();
+
+                // Obtenemos el id_venta recién creado
+                java.sql.ResultSet rsVenta = psVenta.getGeneratedKeys();
+                int idVentaGenerado = -1;
+                if (rsVenta.next()) {
+                    idVentaGenerado = rsVenta.getInt(1);
+                }
+
+                // C. REGISTRAMOS EL DETALLE DE LA VENTA
+                if (idVentaGenerado != -1) {
+                    String sqlDetalle = "INSERT INTO detalle_venta (id_venta, id_producto, cantidad, precio, subtotal) VALUES (?, ?, ?, ?, ?)";
+                    java.sql.PreparedStatement psDetalle = con.prepareStatement(sqlDetalle);
+                    psDetalle.setInt(1, idVentaGenerado);
+                    psDetalle.setInt(2, idProducto);
+                    psDetalle.setDouble(3, cantidadAVender);
+                    psDetalle.setDouble(4, precio);
+                    psDetalle.setDouble(5, total);
+                    psDetalle.executeUpdate();
+                }
+
+                // D. Notificación e interfaz
                 LabelTotal.setText(String.format("$ %.2f", total));
                 javax.swing.JOptionPane.showMessageDialog(null, "¡Venta realizada con éxito!\nTotal: $" + total);
-                
+
                 TextCantidadVender.setText("");
                 calcularTotal();
             }
         }
+        con.close();
+
     } catch (Exception e) {
         javax.swing.JOptionPane.showMessageDialog(null, "Error en la venta: " + e.getMessage());
     }
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
