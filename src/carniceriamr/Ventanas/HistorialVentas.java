@@ -34,6 +34,7 @@ public class HistorialVentas extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         TblDetalles = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +71,9 @@ public class HistorialVentas extends javax.swing.JFrame {
 
         jLabel1.setText("Historial General de Ventas");
 
+        jButton1.setText("Volver al menú");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,7 +87,10 @@ public class HistorialVentas extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(200, 200, 200)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jButton1)))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -95,7 +102,9 @@ public class HistorialVentas extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addGap(10, 10, 10))
         );
 
         pack();
@@ -114,6 +123,13 @@ public class HistorialVentas extends javax.swing.JFrame {
     }
 
     }//GEN-LAST:event_TblVentasMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+  MenuPrincipal objMenuPrincipal = new MenuPrincipal();
+        objMenuPrincipal.setVisible(true);  
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 public void cargarTablaVentas() {
         // estructura de la tabla 1
         javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel();
@@ -189,6 +205,7 @@ public void cargarTablaVentas() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TblDetalles;
     private javax.swing.JTable TblVentas;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

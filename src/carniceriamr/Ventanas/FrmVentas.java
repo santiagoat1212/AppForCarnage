@@ -46,6 +46,8 @@ private void calcularTotal() {
      */
     public FrmVentas() {
         initComponents();
+        carniceriamr.Productos p = new carniceriamr.Productos();
+    p.rellenarComboCarnes(CarneVenderComboBox);
     }
 
     /**
@@ -66,6 +68,7 @@ private void calcularTotal() {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         LabelTotal = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,6 +94,9 @@ private void calcularTotal() {
 
         LabelTotal.setText("jLabel6");
 
+        jButton2.setText("Volver al menú");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,7 +121,9 @@ private void calcularTotal() {
                         .addComponent(LabelTotal)
                         .addGap(149, 149, 149))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(32, 32, 32))
             .addGroup(layout.createSequentialGroup()
@@ -140,7 +148,9 @@ private void calcularTotal() {
                     .addComponent(jLabel5)
                     .addComponent(LabelTotal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addGap(28, 28, 28))
         );
 
@@ -242,6 +252,13 @@ private void calcularTotal() {
         // TODO add your handling code here:
     }//GEN-LAST:event_CarneVenderComboBoxActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+  MenuPrincipal objMenuPrincipal = new MenuPrincipal();
+        objMenuPrincipal.setVisible(true);  
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -272,6 +289,7 @@ private void calcularTotal() {
     private javax.swing.JLabel LabelTotal;
     private javax.swing.JTextField TextCantidadVender;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

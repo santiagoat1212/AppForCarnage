@@ -39,6 +39,7 @@ p.rellenarComboCarnes(CBReabastecer);
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         BotonGuardar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,6 +53,9 @@ p.rellenarComboCarnes(CBReabastecer);
 
         BotonGuardar.setText("Guardar");
         BotonGuardar.addActionListener(this::BotonGuardarActionPerformed);
+
+        jButton1.setText("Volver al menu");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,7 +79,9 @@ p.rellenarComboCarnes(CBReabastecer);
                 .addComponent(TextReponerStock, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(91, 91, 91))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BotonGuardar)
                 .addGap(34, 34, 34))
         );
@@ -93,7 +99,9 @@ p.rellenarComboCarnes(CBReabastecer);
                     .addComponent(TextReponerStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CBReabastecer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                .addComponent(BotonGuardar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotonGuardar)
+                    .addComponent(jButton1))
                 .addGap(29, 29, 29))
         );
 
@@ -143,6 +151,13 @@ p.rellenarComboCarnes(CBReabastecer);
     }
     }//GEN-LAST:event_BotonGuardarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+  MenuPrincipal objMenuPrincipal = new MenuPrincipal();
+        objMenuPrincipal.setVisible(true);  
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -172,6 +187,7 @@ p.rellenarComboCarnes(CBReabastecer);
     private javax.swing.JButton BotonGuardar;
     private javax.swing.JComboBox<String> CBReabastecer;
     private javax.swing.JTextField TextReponerStock;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
